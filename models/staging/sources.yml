@@ -5,5 +5,22 @@ sources:
       schema: raw_schema
       tables:
         - name: raw_customerdata
+        - name: emp_sal
         - name: raw_orders
+          columns:
+            - name: ID
+              tests:
+                - not_null
+                - unique
+            - name: STATUS 
+              tests:
+                - accepted_values:
+                   values: ['placed', 'shipped', 'completed', 'returned', 'return_pending','processed']
+            - name: user_id
+              tests:
+                - relationships:
+                    to: ref('customers')
+                    field: id       
+
+        - name: customers
         
